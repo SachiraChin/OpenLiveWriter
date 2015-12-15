@@ -37,12 +37,14 @@ to clarify expected behavior in our community. This code of conduct has been
 [adopted by many other projects](http://contributor-covenant.org/adopters/).
 For more information see the [.NET Foundation Code of Conduct](http://www.dotnetfoundation.org/code-of-conduct).
 
+[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/OpenLiveWriter/OpenLiveWriter?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
+
 ### License
 Open Live Writer proudly uses the [MIT License](license.txt).
 
 ### History
 The product that became Live Writer was originally created by a small, super-talented team of engineers including 
-Jeremy Allaire, JJ Allaire, Joe Cheng, Charles Teague, and Spike Washburn. The team was acquired by Microsoft 
+JJ Allaire, Joe Cheng, Charles Teague, and Spike Washburn. The team was acquired by Microsoft 
 in 2006 and organized with the Spaces team. Becky Pezely joined the team and over time, the team grew and shipped
 many popular releases of Windows Live Writer.
 
