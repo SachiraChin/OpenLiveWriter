@@ -14,7 +14,8 @@
       <BuildVersion>@(VersionTextLines)</BuildVersion>
     </PropertyGroup>
     <WriteLinesToFile File="$(GlobalAssemblyVersionInfoPath)" Lines="[assembly: System.Reflection.AssemblyVersion(&quot;$(BuildVersion)&quot;)];[assembly: System.Reflection.AssemblyFileVersion(&quot;$(BuildVersion)&quot;)]" Overwrite="true" />
-    <WriteLinesToFile File="$(UnmanagedVersionPath)" Lines="#define FILE_VERSION $(BuildVersion.Replace(&quot;.&quot;,&quot;,&quot;));#define PRODUCT_VERSION $(BuildVersion)" Overwrite="true" />
+    <!-- <WriteLinesToFile File="$(UnmanagedVersionPath)" Lines="#define FILE_VERSION $(BuildVersion.Replace(&quot;.&quot;,&quot;,&quot;));#define PRODUCT_VERSION $(BuildVersion)" Overwrite="true" /> -->
+
     <ItemGroup>
       <Compile Condition="Exists('$(GlobalAssemblyVersionInfoPath)')" Include="$(GlobalAssemblyVersionInfoPath)" />
     </ItemGroup>

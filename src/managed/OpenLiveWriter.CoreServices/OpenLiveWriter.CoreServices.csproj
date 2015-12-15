@@ -1,11 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="..\..\..\writer.build.settings" />
   <PropertyGroup>
     <AssemblyName>OpenLiveWriter.CoreServices</AssemblyName>
     <RootNamespace>OpenLiveWriter.CoreServices</RootNamespace>
     <ProjectGuid>{9154B6B4-F2C3-4FB4-BE38-A26A6C9409EE}</ProjectGuid>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <OutputType>Library</OutputType>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -21,33 +25,28 @@
       <HintPath>..\OpenLiveWriter.Interop\Com\OpenLiveWriter.Interop.SHDocVw.dll</HintPath>
     </Reference>
     <ProjectReference Include="..\MarketXmlGenerator\MarketXmlGenerator.csproj">
-      <Project>{d286c651-2ae7-447e-bbd8-b82f1c542667}</Project>
+      <Project>{D286C651-2AE7-447E-BBD8-B82F1C542667}</Project>
       <Name>MarketXmlGenerator</Name>
     </ProjectReference>
     <ProjectReference Include="..\OpenLiveWriter.BrowserControl\OpenLiveWriter.BrowserControl.csproj">
       <Name>OpenLiveWriter.BrowserControl</Name>
       <Project>{A5C213F6-F0C6-4FD6-B496-61FE434621A6}</Project>
-      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
     </ProjectReference>
     <ProjectReference Include="..\OpenLiveWriter.HtmlParser\OpenLiveWriter.HtmlParser.csproj">
       <Name>OpenLiveWriter.HtmlParser</Name>
       <Project>{8B905D4B-EE76-4EEE-83CC-C9028B2F16AE}</Project>
-      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
     </ProjectReference>
     <ProjectReference Include="..\OpenLiveWriter.Interop.Mshtml\OpenLiveWriter.Interop.Mshtml.csproj">
       <Name>OpenLiveWriter.Interop.Mshtml</Name>
       <Project>{102B4586-3CDB-4DC2-A918-8377B6915BB4}</Project>
-      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
     </ProjectReference>
     <ProjectReference Include="..\OpenLiveWriter.Interop\OpenLiveWriter.Interop.csproj">
       <Name>OpenLiveWriter.Interop</Name>
       <Project>{0937EF37-EB01-48E2-885B-991044877712}</Project>
-      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
     </ProjectReference>
     <ProjectReference Include="..\OpenLiveWriter.Localization\OpenLiveWriter.Localization.csproj">
       <Name>OpenLiveWriter.Localization</Name>
       <Project>{DF928A2F-38E3-4B1F-83CE-1FDFDE836D84}</Project>
-      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -328,17 +327,13 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Images\ApplicationIcon.ico" />
     <EmbeddedResource Include="Images\SplashScreen.png" />
-    <EmbeddedResource Include="Marketization\Markets.xml" />
-    <EmbeddedResource Include="Marketization\Master.xml" />
     <EmbeddedResource Include="SplashScreen.resx">
       <DependentUpon>SplashScreen.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <BinplaceCompiled Include="$(OutputPath)$(TargetFileName)">
-      <DestinationFolder>$(TargetProjectPath)</DestinationFolder>
-    </BinplaceCompiled>
+    <BinplaceCompiled Include="%24%28OutputPath%29%24%28TargetFileName%29" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Images\SplashScreenLogo.jpg" />
@@ -349,10 +344,19 @@
     <MasterXmlPath>$(MSBuildProjectDirectory)\..\..\..\intl\markets\Master.xml</MasterXmlPath>
     <MasterXmlOutput>$(MSBuildProjectDirectory)\Marketization\Master.xml</MasterXmlOutput>
   </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <WarningLevel>1</WarningLevel>
+  </PropertyGroup>
   <Target Name="GenerateMarketXml" DependsOnTargets="ResolveProjectReferences" BeforeTargets="CoreCompile">
     <MakeDir Directories="$(MSBuildProjectDirectory)\Marketization" />
     <Copy SourceFiles="$(MasterXmlPath)" DestinationFiles="$(MasterXmlOutput)" />
-    <Exec Command="&quot;$(OutDir)MarketXmlGenerator.exe&quot; &quot;$(MSBuildProjectDirectory)\..\..\..\intl\markets&quot; &quot;$(MSBuildProjectDirectory)\Marketization\Markets.xml&quot;" />
+    <Exec Command="mono &quot;$(OutDir)MarketXmlGenerator.exe&quot; &quot;$(MSBuildProjectDirectory)\..\..\..\intl\markets&quot; &quot;$(MSBuildProjectDirectory)\Marketization\Markets.xml&quot;" />
   </Target>
   <Target Name="_CopyFilesMarkedCopyLocal" />
+  <ItemGroup>
+    <None Include="Marketization\Master.xml" />
+    <None Include="Marketization\Markets.xml" />
+  </ItemGroup>
 </Project>
